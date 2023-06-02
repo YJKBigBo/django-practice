@@ -2,11 +2,6 @@ from django.shortcuts import get_object_or_404, redirect, render
 from todo.models import TodoList
 
 # Create your views here.
-def delete_todo(request, pk):
-	delTodo = get_object_or_404(TodoList, pk=pk)
-	delTodo.delete()
-	return redirect('todos')
-
 def update_todo(request, pk):
 	curTodo = get_object_or_404(TodoList, pk=pk)
 	if request.method == 'POST':
@@ -59,3 +54,14 @@ def index(request):
 			'todolist': todolist,
 		}
 	)
+ 
+def check_todo(request, pk):
+    checkTodo = get_object_or_404(TodoList, pk=pk)
+    checkTodo.complete = True
+    checkTodo.save()
+    return redirect('todos')
+
+def delete_todo(request, pk):
+	delTodo = get_object_or_404(TodoList, pk=pk)
+	delTodo.delete()
+	return redirect('todos')
